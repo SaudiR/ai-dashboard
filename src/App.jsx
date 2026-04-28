@@ -43,8 +43,10 @@ export default function App() {
   }, []);
 
   const uploadImage = async () => {
-  if (!file) return;
-
+  if (!file)  {
+    alert("Please select a file")
+    return;
+  }
   try {
     setUploading(true);
 
