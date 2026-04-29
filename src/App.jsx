@@ -159,12 +159,37 @@ export default function App() {
 
 
             <div>
-              {img.labels.slice(1, 3).map((label, i) => (
-                <div key={i} style={styles.labelRow}>
-                  <span>{label.name}</span>
-                  <span>{label.confidence}%</span>
+              {img.labels
+                .sort((a, b) => b.confidence - a.confidence)
+                .slice(0, 3)
+                .map((label, i) => (
+                  <div key={i} style={styles.labelRow}>
+      
+                    <div style={{ width: "100%" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span>{label.name}</span>
+                        <span>{label.confidence}%</span>
+                      </div>
+
+                      { }
+                      <div style={styles.barBackground}>
+                        <div
+                          style={{
+                            ...styles.barFill,
+                            width: `${label.confidence}%`,
+                            backgroundColor:
+                              label.confidence > 80
+                                ? "#22c55e" 
+                                : label.confidence > 50
+                                ? "#facc15" 
+                                : "#ef4444", 
+                          }}
+                        />
+                    </div>
+                  </div>
                 </div>
               ))}
+
             </div>
 
             <p style={styles.timestamp}>
@@ -231,4 +256,18 @@ const styles = {
     height: "100vh",
     flexDirection: "column",
   },
+  barBackground: {
+  width: "100%",
+  height: "6px",
+  backgroundColor: "#e5e7eb",
+  borderRadius: "4px",
+  marginTop: "5px",
+  overflow: "hidden",
+},
+
+barFill: {
+  height: "100%",
+  borderRadius: "4px",
+},
+
 };
