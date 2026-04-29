@@ -50,14 +50,12 @@ export default function App() {
   try {
     setUploading(true);
 
-    // 1. Get upload URL
     const res = await fetch(
       "https://2zaa3cbaqe.execute-api.us-east-1.amazonaws.com/upload-url"
     );
 
     const data = await res.json();
 
-    // 2. Upload directly to S3
     await fetch(data.uploadUrl, {
       method: "PUT",
       headers: {
@@ -68,7 +66,6 @@ export default function App() {
 
     alert("Upload successful 🚀");
 
-    // 3. Refresh dashboard
     window.location.reload();
 
   } catch (err) {
