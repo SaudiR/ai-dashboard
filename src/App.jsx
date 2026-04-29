@@ -100,6 +100,42 @@ export default function App() {
       </div>
     );
   }
+  const deleteImage = async (image_id, image_name) => {
+  if (!window.confirm("Delete this image?")) return;
+
+  try {
+    console.log("Deleting:", image_id, image_name);
+
+    const res = await fetch(
+      "https://2zaa3cbaqe.execute-api.us-east-1.amazonaws.com/image",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image_id: image_id,
+          image_name: image_name,
+        }),
+      }
+    );
+
+    const data = await res.json();
+    console.log("Response:", data);
+
+    if (!res.ok) {
+      throw new Error(data.error || "Delete failed");
+    }
+
+    setImages((prevImages) =>
+      prevImages.filter((img) => img.image_id !== image_id)
+    );
+
+  } catch (err) {
+    console.error("Delete failed:", err);
+    alert("Failed to delete image");
+  }
+};
 
   return (
     <div style={styles.container}>
