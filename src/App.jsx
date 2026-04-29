@@ -139,7 +139,7 @@ export default function App() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>🧠 AI Vision Dashboard</h1>
+      <h1 style={styles.title}> AI Vision Dashboard</h1>
 
       <input type="file" onChange={(e) => setFile(e.target.files[0])} />
 
